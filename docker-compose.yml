@@ -26,7 +26,7 @@ services:
       - acme-network
     depends_on:
       - discovery-system
-  
+
   # RabbitMQ (Message Broker)
   message-broker:
     container_name: acme-message-broker
@@ -39,13 +39,73 @@ services:
       - RABBITMQ_DEFAULT_PASS=123456
     networks:
       - acme-network
-  
+
   # Product Command
   product-command:
     container_name: acme-product-command
     image: product-command
     build:
       context: ./acme-product-command
+      dockerfile: Dockerfile
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
+  # Product Query
+  # product-query:
+  #   container_name: acme-product-query
+  #   image: product-query
+  #   build:
+  #     context: ./acme-product-query
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - acme-network
+  #   depends_on:
+  #     - message-broker
+
+  # Review Command
+  review-command:
+    container_name: acme-review-command
+    image: review-command
+    build:
+      context: ./acme-review-command
+      dockerfile: Dockerfile
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
+  # Review Query
+  review-query:
+    container_name: acme-review-query
+    image: review-query
+    build:
+      context: ./acme-review-query
+      dockerfile: Dockerfile
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
+  # Vote Command
+  vote-command:
+    container_name: acme-vote-command
+    image: vote-command
+    build:
+      context: ./acme-vote-command
+      dockerfile: Dockerfile
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
+  # Vote Query
+  vote-query:
+    container_name: acme-vote-query
+    image: vote-query
+    build:
+      context: ./acme-vote-query
       dockerfile: Dockerfile
     networks:
       - acme-network
