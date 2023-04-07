@@ -39,6 +39,18 @@ services:
       - RABBITMQ_DEFAULT_PASS=123456
     networks:
       - acme-network
+  
+  # Product Command
+  product-command:
+    container_name: acme-product-command
+    image: product-command
+    build:
+      context: ./acme-product-command
+      dockerfile: Dockerfile
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
 
 # ACME Network
 networks:
