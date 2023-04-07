@@ -42,7 +42,6 @@ services:
 
   # Product Command
   product-command:
-    container_name: acme-product-command
     image: product-command
     build:
       context: ./acme-product-command
@@ -66,7 +65,6 @@ services:
 
   # Review Command
   review-command:
-    container_name: acme-review-command
     image: review-command
     build:
       context: ./acme-review-command
@@ -78,7 +76,6 @@ services:
 
   # Review Query
   review-query:
-    container_name: acme-review-query
     image: review-query
     build:
       context: ./acme-review-query
@@ -90,7 +87,6 @@ services:
 
   # Vote Command
   vote-command:
-    container_name: acme-vote-command
     image: vote-command
     build:
       context: ./acme-vote-command
@@ -102,7 +98,6 @@ services:
 
   # Vote Query
   vote-query:
-    container_name: acme-vote-query
     image: vote-query
     build:
       context: ./acme-vote-query
