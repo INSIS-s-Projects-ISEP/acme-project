@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+
+  # Eureka Server (Discovery System)
+  discovery-system:
+    container_name: acme-discovery-system
+    image: acme-discovery-system
+    build:
+      context: ./acme-discovery-system
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    networks:
+      - acme-network
+
+  # Gateway (Load Balancer)
+  load-balancer:
+    container_name: acme-load-balancer
+    image: acme-load-balancer
+    build:
+      context: ./acme-load-balancer
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - acme-network
+    depends_on:
+      - discovery-system
+  
+  # RabbitMQ (Message Broker)
+  message-broker:
+    container_name: acme-message-broker
+    image: rabbitmq:3.11.10-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=123456
+    networks:
+      - acme-network
+
+# ACME Network
+networks:
+  acme-network:
+    name: acme-network
+    driver: bridge
