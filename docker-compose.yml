@@ -36,6 +36,20 @@ services:
       - RABBITMQ_DEFAULT_PASS=123456
     networks:
       - acme-network
+  
+  # Axon Server (Event Sourcing)
+  event-sourcing:
+    image: axoniq/axonserver:latest
+    volumes:
+      - axonserver-data:/data
+      - axonserver-events:/eventdata
+      - axonserver-config:/config:ro
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+      - '8224:8224'
+    networks:
+      - acme-network
 
   # Product Command
   product-command:
@@ -103,8 +117,24 @@ services:
     depends_on:
       - message-broker
 
+  # Product Command Bootrstrapper
+  product-command-bootstrapper:
+    image: product-command-bootstrapper
+    build:
+      context: ../acme-product-command-bootstrapper
+      dockerfile: Dockerfile
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
 # ACME Network
 networks:
   acme-network:
     name: acme-network
     driver: bridge
+    
+volumes:
+  axonserver-data:
+  axonserver-events:
+  axonserver-config:
