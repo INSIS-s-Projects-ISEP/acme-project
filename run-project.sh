@@ -1,34 +1,48 @@
 
-ECHO OFF
-CLEAR
+echo off
+clear
 
-ECHO "Hello, World!"
+echo
+echo "Preparing environment..."
+cd ..
 
-ECHO "Downloading Discovery System..."
+echo
+echo "Downloading Discovery System..."
 git clone https://github.com/INSIS-s-Projects-ISEP/acme-discovery-system.git
 
-ECHO "Downloading Loading Balancer..."
+echo
+echo "Downloading Loading Balancer..."
 git clone https://github.com/INSIS-s-Projects-ISEP/acme-load-balancer.git
 
-ECHO "Downloading Product Command..."
+echo
+echo "Downloading Product Command..."
 git clone https://github.com/INSIS-s-Projects-ISEP/acme-product-command.git
 
-# ECHO "Downloading Product Query..."
+# echo
+# echo "Downloading Product Query..."
 # git clone https://github.com/INSIS-s-Projects-ISEP/acme-product-query.git
 
-ECHO "Downloading Review Command..."
+echo
+echo "Downloading Review Command..."
 git clone https://github.com/INSIS-s-Projects-ISEP/acme-review-command.git
 
-ECHO "Downloading Review Query..."
+echo
+echo "Downloading Review Query..."
 git clone https://github.com/INSIS-s-Projects-ISEP/acme-review-query.git
 
-ECHO "Downloading Vote Command..."
+echo
+echo "Downloading Vote Command..."
 git clone https://github.com/INSIS-s-Projects-ISEP/acme-vote-command.git
 
-ECHO "Downloading Vote Query..."
+echo
+echo "Downloading Vote Query..."
 git clone https://github.com/INSIS-s-Projects-ISEP/acme-vote-query.git
 
-ECHO "Running docker-compose.yml file..."
+echo
+echo "Running docker-compose.yml file..."
+
+cd ./acme-project
 docker compose up -d --build
 
-PAUSE
+echo
+read -p "Press any key to resume..."

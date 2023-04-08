@@ -3,22 +3,20 @@ services:
 
   # Eureka Server (Discovery System)
   discovery-system:
-    container_name: acme-discovery-system
-    image: acme-discovery-system
+    image: discovery-system
     build:
-      context: ./acme-discovery-system
+      context: ../acme-discovery-system
       dockerfile: Dockerfile
     ports:
       - 8761:8761
     networks:
       - acme-network
 
-  # Gateway (Load Balancer)
+  # API Gateway (Load Balancer)
   load-balancer:
-    container_name: acme-load-balancer
-    image: acme-load-balancer
+    image: load-balancer
     build:
-      context: ./acme-load-balancer
+      context: ../acme-load-balancer
       dockerfile: Dockerfile
     ports:
       - 8080:8080
@@ -29,7 +27,6 @@ services:
 
   # RabbitMQ (Message Broker)
   message-broker:
-    container_name: acme-message-broker
     image: rabbitmq:3.11.10-management-alpine
     ports:
       - 5672:5672
@@ -44,19 +41,18 @@ services:
   product-command:
     image: product-command
     build:
-      context: ./acme-product-command
+      context: ../acme-product-command
       dockerfile: Dockerfile
     networks:
       - acme-network
     depends_on:
       - message-broker
 
-  # Product Query
+  # # Product Query
   # product-query:
-  #   container_name: acme-product-query
   #   image: product-query
   #   build:
-  #     context: ./acme-product-query
+  #     context: ../acme-product-query
   #     dockerfile: Dockerfile
   #   networks:
   #     - acme-network
@@ -67,7 +63,7 @@ services:
   review-command:
     image: review-command
     build:
-      context: ./acme-review-command
+      context: ../acme-review-command
       dockerfile: Dockerfile
     networks:
       - acme-network
@@ -78,7 +74,7 @@ services:
   review-query:
     image: review-query
     build:
-      context: ./acme-review-query
+      context: ../acme-review-query
       dockerfile: Dockerfile
     networks:
       - acme-network
@@ -89,7 +85,7 @@ services:
   vote-command:
     image: vote-command
     build:
-      context: ./acme-vote-command
+      context: ../acme-vote-command
       dockerfile: Dockerfile
     networks:
       - acme-network
@@ -100,7 +96,7 @@ services:
   vote-query:
     image: vote-query
     build:
-      context: ./acme-vote-query
+      context: ../acme-vote-query
       dockerfile: Dockerfile
     networks:
       - acme-network
