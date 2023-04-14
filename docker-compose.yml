@@ -3,10 +3,7 @@ services:
 
   # Eureka Server (Discovery System)
   discovery-system:
-    image: discovery-system
-    build:
-      context: ../acme-discovery-system
-      dockerfile: Dockerfile
+    image: acmeproject/discovery-system:latest
     ports:
       - 8761:8761
     networks:
@@ -14,10 +11,7 @@ services:
 
   # API Gateway (Load Balancer)
   load-balancer:
-    image: load-balancer
-    build:
-      context: ../acme-load-balancer
-      dockerfile: Dockerfile
+    image: acmeproject/load-balancer:latest
     ports:
       - 8080:8080
     networks:
@@ -53,10 +47,7 @@ services:
 
   # Product Command
   product-command:
-    image: product-command
-    build:
-      context: ../acme-product-command
-      dockerfile: Dockerfile
+    image: acme/product-command:latest
     networks:
       - acme-network
     depends_on:
