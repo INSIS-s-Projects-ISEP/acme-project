@@ -47,7 +47,7 @@ services:
 
   # Product Command
   product-command:
-    image: acme/product-command:latest
+    image: acmeproject/product-command:latest
     networks:
       - acme-network
     depends_on:
