@@ -76,15 +76,15 @@ services:
       - message-broker
 
   # Review Query
-  review-query:
-    image: review-query
-    build:
-      context: ../acme-review-query
-      dockerfile: Dockerfile
-    networks:
-      - acme-network
-    depends_on:
-      - message-broker
+  # review-query:
+  #   image: review-query
+  #   build:
+  #     context: ../acme-review-query
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - acme-network
+  #   depends_on:
+  #     - message-broker
 
   # Vote Command
   vote-command:
@@ -98,15 +98,15 @@ services:
       - message-broker
 
   # Vote Query
-  vote-query:
-    image: vote-query
-    build:
-      context: ../acme-vote-query
-      dockerfile: Dockerfile
-    networks:
-      - acme-network
-    depends_on:
-      - message-broker
+  # vote-query:
+  #   image: vote-query
+  #   build:
+  #     context: ../acme-vote-query
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - acme-network
+  #   depends_on:
+  #     - message-broker
 
   # Product Command Bootrstrapper
   product-command-bootstrapper:
@@ -114,6 +114,21 @@ services:
     build:
       context: ../acme-product-command-bootstrapper
       dockerfile: Dockerfile
+    ports:
+      - 8099:8080
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
+  # Review Command Bootrstrapper
+  review-command-bootstrapper:
+    image: review-command-bootstrapper
+    build:
+      context: ../acme-review-command-bootstrapper
+      dockerfile: Dockerfile
+    ports:
+      - 8098:8080
     networks:
       - acme-network
     depends_on:
