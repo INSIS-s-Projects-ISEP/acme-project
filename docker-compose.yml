@@ -11,7 +11,9 @@ services:
 
   # API Gateway (Load Balancer)
   load-balancer:
-    image: acmeproject/load-balancer:latest
+    build:
+      context: ../acme-load-balancer
+      dockerfile: Dockerfile
     ports:
       - 8080:8080
     networks:
@@ -47,7 +49,11 @@ services:
 
   # Product Command
   product-command:
-    image: acme/product-command:latest
+    build:
+      context: ../acme-product-command
+      dockerfile: Dockerfile
+    ports:
+      - 8076:8080
     networks:
       - acme-network
     depends_on:
@@ -76,15 +82,15 @@ services:
       - message-broker
 
   # Review Query
-  # review-query:
-  #   image: review-query
-  #   build:
-  #     context: ../acme-review-query
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     - acme-network
-  #   depends_on:
-  #     - message-broker
+  review-query:
+    image: review-query
+    build:
+      context: ../acme-review-query
+      dockerfile: Dockerfile
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
 
   # Vote Command
   vote-command:
@@ -92,21 +98,25 @@ services:
     build:
       context: ../acme-vote-command
       dockerfile: Dockerfile
+    ports:
+      - 8008:8080
     networks:
       - acme-network
     depends_on:
       - message-broker
 
   # Vote Query
-  # vote-query:
-  #   image: vote-query
-  #   build:
-  #     context: ../acme-vote-query
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     - acme-network
-  #   depends_on:
-  #     - message-broker
+  vote-query:
+    image: vote-query
+    build:
+      context: ../acme-vote-query
+      dockerfile: Dockerfile
+    ports:
+      - 8051:8080
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
 
   # Product Command Bootrstrapper
   product-command-bootstrapper:
@@ -121,6 +131,19 @@ services:
     depends_on:
       - message-broker
 
+  # Product Query Bootrstrapper
+  product-query-bootstrapper:
+    image: product-query-bootstrapper
+    build:
+      context: ../acme-product-query-bootstrapper
+      dockerfile: Dockerfile
+    ports:
+      - 8059:8080
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
   # Review Command Bootrstrapper
   review-command-bootstrapper:
     image: review-command-bootstrapper
@@ -129,6 +152,45 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8098:8080
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
+  # Review Query Bootrstrapper
+  review-query-bootstrapper:
+    image: review-query-bootstrapper
+    build:
+      context: ../acme-review-query-bootstrapper
+      dockerfile: Dockerfile
+    ports:
+      - 8058:8080
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
+  # Vote Command Bootrstrapper
+  vote-command-bootstrapper:
+    image: vote-command-bootstrapper
+    build:
+      context: ../acme-vote-command-bootstrapper
+      dockerfile: Dockerfile
+    ports:
+      - 8097:8080
+    networks:
+      - acme-network
+    depends_on:
+      - message-broker
+
+  # Vote Query Bootrstrapper
+  vote-query-bootstrapper:
+    image: vote-query-bootstrapper
+    build:
+      context: ../acme-vote-query-bootstrapper
+      dockerfile: Dockerfile
+    ports:
+      - 8057:8080
     networks:
       - acme-network
     depends_on:
